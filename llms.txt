@@ -1,0 +1,30 @@
+# Quantum Magic Burst Routing
+
+This project uses the source identity of noisy T states to assign their input
+slots in a fixed magic-state distillation circuit. The source-error model,
+proofs and hardware interface are explained in science/.
+
+- README.md — question, principal results, learning, reproduction and contact.
+- science/README.md — connected specialist reading route.
+- science/model.md — ideal injection circuit, binary syndrome and parity,
+  fault distributions, success convention and charged resources.
+- science/routing.md — explicit five-source placement, complement classes,
+  optimal syndrome information and the reliability–yield tradeoff.
+- science/noise.md — independent per-input faults, exact Walsh formulas and
+  the minimum number of harmful whole-plus-partial burst patterns.
+- science/scaling.md — punctured Reed–Muller family and balanced placement.
+- science/scheduling.md — finite delivery, retry and interleaving comparison.
+- references/RELATED_WORK.md — attribution and nearby operational models.
+- references/references.bib — source metadata.
+- learning/README.md — learning entry point.
+- learning/MILESTONES.md — exactly 30 project-defined understanding targets.
+- learning/GOTTESMAN_BRIDGE.md — single educational source and proof bridges.
+- verification/README.md — commands and coverage of the runnable checks.
+
+For the headline error law, follow the 15-slot construction in routing.md
+and check the assumptions in model.md. For limitations and noise robustness,
+read noise.md and scheduling.md. The whole-burst syndrome comparison applies
+to a fixed ideal gadget, including unequal or dependent source histories.
+The exact p-law assumes independent equally likely whole-source faults.
+Independent per-slot faults change the comparison. Nothing here establishes
+a hardware-independent cost reduction or fifth order under arbitrary noise.

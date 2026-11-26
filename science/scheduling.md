@@ -18,7 +18,7 @@ Register occupancy counts ready states before injection and excludes a state onc
 
 **Collinear assignment.** Use the same schedule and assign the five sources the triples $(1,2,3)$, $(4,8,12)$, $(5,10,15)$, $(6,11,13)$, and $(7,9,14)$. These cover all 15 labels and each triple XORs to zero. The resources are the same as in the routed schedule. This is an explicit baseline for a syndrome-blind assignment. Other untuned assignments can have different reliability.
 
-**Across-block interleaving.** For each successive frame of three production epochs, assign one member of every bundle to each of three attempts. In each attempt, feed the five states from the first epoch to ordered slots $0$–$4$, the five from the second to slots $5$–$9$, and the five from the third to slots $10$–$14$. The attempt starts, relative to the frame start, are $s$, $s+T$, and $s+2T$, where
+**Across-block interleaving.** For each successive frame of three production epochs, assign one member of every bundle to each of three attempts. In each attempt, feed the five states from the first epoch to ordered slots 0–4, the five from the second to slots 5–9, and the five from the third to slots 10–14. The attempt starts, relative to the frame start, are $s$, $s+T$, and $s+2T$, where
 
 ```math
 s=2T-10g .

@@ -30,7 +30,7 @@ C=\frac{x^{15}y^5+x^7(10y^3+5y)}{16},\qquad
 F=\frac{A-C}{2A}.
 ```
 
-The indicator of zero syndrome is the average over its 16 binary characters. The zero character contributes 1 to the acceptance numerator. Every nonzero functional on $`\mathbb F_2^4`$ is 1 on eight slot labels. The map from a character to its evaluations at the five source syndromes is a bijection onto the even five-bit words, because the syndromes have rank four and sum to zero. The 15 nonzero characters thus give ten source weights 2 and five source weights 4. A Bernoulli bit of rate $q$ contributes $x$ to a character that depends on it, and a rate-$p$ source bit contributes $y$. The logical parity sign complements both supports since all source bundles have odd size. The zero character then contributes support sizes 15 and 5. The nonzero characters contribute size 7 along with size 3 or 1. This gives $C$.
+The indicator of zero syndrome is the average over its 16 binary characters. The zero character contributes 1 to the acceptance numerator. Every nonzero functional on $`\mathbb F_2^4`$ is 1 on eight slot labels. The map from a character to its evaluations at the five source syndromes is a bijection onto the even five-bit words, because the syndromes have rank four and sum to zero. The 15 nonzero characters thus give ten source weights 2 and five source weights 4. A Bernoulli bit of rate $q$ contributes $x$ to a character that depends on it, and a source bit with rate $p$ contributes $y$. The logical parity sign complements both supports since all source bundles have odd size. The zero character then contributes support sizes 15 and 5. The nonzero characters contribute size 7 along with size 3 or 1. This gives $C$.
 
 The first mixed terms at small nonnegative $p,q$ are
 

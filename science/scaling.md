@@ -4,7 +4,7 @@
 
 For $`m\ge4`$, take the first-order punctured quantum Reed–Muller distiller of length $`N=2^m-1`$. Its X-check rows are coordinate evaluations on the nonzero labels of $`\mathbb F_2^m`$. The binary row span consists of the zero word and linear words of weight $`2^{m-1}`$, a multiple of eight. The CSS logical zero is the uniform sum over the row span, and logical one is the uniform sum over its all-ones translate. All words in the translate have weight $`-1\bmod8`$. Thus physical transversal T acts as logical $`T^\dagger`$, with its fixed ideal Clifford conversion if the T-state convention is used. Input Z faults flip the m X-check signs by the XOR of their labels and, in a zero-syndrome branch, act by logical Z to the fault parity. See the inherited code constructions in [Related work](../references/RELATED_WORK.md).
 
-Choose an odd number of sources $`5\le k\le m+1`$ supplying bundles of odd size. Reserve the labels $`s_i=e_i`$ for $`1\le i<k`$ and $`s_k=\bigoplus_{i<k}e_i`$. Give one reserved label to each bundle. The syndromes have a single relation, the XOR of all k. The remaining labels have zero total XOR and even cardinality, since the XOR of all N slot labels and the XOR of all k reserved labels are both zero. Giving the remainder to one bundle preserves those source syndromes and odd sizes. This already constructs rank $`k-1`$ at the same N slots and m checks.
+Choose an odd number of sources $`5\le k\le m+1`$ supplying bundles of odd size. Reserve the labels $`s_i=e_i`$ for $`1\le i\lt k`$ and $`s_k=\bigoplus_{i\lt k}e_i`$. Give one reserved label to each bundle. The syndromes have a single relation, the XOR of all k. The remaining labels have zero total XOR and even cardinality, since the XOR of all N slot labels and the XOR of all k reserved labels are both zero. Giving the remainder to one bundle preserves those source syndromes and odd sizes. This already constructs rank $`k-1`$ at the same N slots and m checks.
 
 The whole-source record distinguishes histories up to complement, so it can reproduce the decisions of any other placement with the same odd source sizes and the same history distribution. For independent equal whole-source burst rate $p$, zero-syndrome postselection accepts only the histories of weight zero and k. Its exact rates are
 
@@ -30,7 +30,7 @@ For $`k=5`$, the integer labels $(12,5,23)$ meet all three orbits and XOR to $`3
 For prime $`k\ge11`$, choose representatives independently and uniformly in their orbits. Every nontrivial binary linear functional on the even subspace is 1 on $`2^{k-2}`$ labels. In each orbit the number of such labels is even because the orbit XOR is zero, so it is at most $`k-1`$. At least $`2^{k-2}/(k-1)`$ orbits are nonconstant under this functional. For each such orbit the magnitude of the character average is at most $`1-2/k`$. By independence, the sum of the magnitudes of all nontrivial Fourier coefficients of the XOR distribution is bounded by
 
 ```math
-(2^{k-1}-1)(1-2/k)^{2^{k-2}/(k-1)}<1.
+(2^{k-1}-1)(1-2/k)^{2^{k-2}/(k-1)}\lt 1.
 ```
 
 To verify the strict inequality, use $`\log(1-2/k)\le-2/k`$ and $`2^{k-1}/[k(k-1)]>(k-1)\log 2`$. The latter holds at $`k=11`$, and $`2^{k-1}/[k(k-1)^2]`$ increases for integers $`k\ge11`$. Fourier inversion then gives positive probability for every target XOR, including $`\mathbf 1+e_0`$. A deterministic procedure tracks, after each orbit, the attainable XORs and one predecessor for each. Once all orbits have been processed, follow the predecessors from the requested target XOR to recover the representatives.

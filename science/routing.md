@@ -22,7 +22,7 @@ Syndrome-only processing cannot distinguish complementary histories in this mode
 
 ## Exact yield and infidelity
 
-Suppose the source bursts are independent with equal probability $`0<p<1/2`$. Every complementary pair has a unique representative of smaller weight $`i\in\{0,1,2\}`$. The maximum-posterior correction is its parity. The size-$i$ class contains $`\binom{5}{i}`$ syndromes. Each one has total mass $`a_i`$ and contributes unconditional error mass $`e_i`$ when accepted.
+Suppose the source bursts are independent with equal probability $`0\lt p\lt 1/2`$. Every complementary pair has a unique representative of smaller weight $`i\in\{0,1,2\}`$. The maximum-posterior correction is its parity. The class of size $i$ contains $`\binom{5}{i}`$ syndromes. Each one has total mass $`a_i`$ and contributes unconditional error mass $`e_i`$ when accepted.
 
 ```math
 a_i=p^i(1-p)^{5-i}+p^{5-i}(1-p)^i,\qquad

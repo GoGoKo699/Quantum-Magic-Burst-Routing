@@ -1,0 +1,72 @@
+name: Hosted mathematics
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/hosted-math-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      SCIENCE_REVISION: 406e60e9a1e10d7d8eca420371b6420686d07a64
+    steps:
+      - name: Check out the exact merged scientific source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.SCIENCE_REVISION }}
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Verify the published collector files
+        shell: bash
+        run: |
+          set -euo pipefail
+          helper_dir="$RUNNER_TEMP/math-helpers"
+          mkdir -p "$helper_dir"
+          public_source="https://raw.githubusercontent.com/GoGoKo699/Quantum-Unraveling-Cost/be43a1f166c670fc15e6b866dc131598a2eb31e0/verification/hosted_math"
+          verify() {
+            curl --fail --silent --show-error --location "$public_source/$1" -o "$helper_dir/$1"
+            test "$(git hash-object "$helper_dir/$1")" = "$2"
+          }
+          verify capture_hosted_math.cjs a22129bf3e84145f16122045368ac9aee58acf3c
+          verify probe_hosted_math.cjs f83ea9da799bee0b53bd5c57315ae2b4b2d9de43
+          verify check_rendered_math.py 1d3bf9810d0dfadb844a48b354af80f9b66924bc
+      - name: Install the pinned verification runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/math-runtime" playwright@1.56.1 mathjax-full@3.2.1
+          node "$RUNNER_TEMP/math-runtime/node_modules/playwright/cli.js" install chromium
+      - name: Check the representative page, then all reader pages
+        shell: bash
+        run: |
+          export NODE_PATH="$RUNNER_TEMP/math-runtime/node_modules"
+          helpers="$RUNNER_TEMP/math-helpers"
+          node "$helpers/probe_hosted_math.cjs" --root "$GITHUB_WORKSPACE" --repository "$GITHUB_REPOSITORY" --revision "$SCIENCE_REVISION" --page README.md --output "$RUNNER_TEMP/hosted-probe" || echo "Representative probe recorded a diagnostic"
+          args=(--root "$GITHUB_WORKSPACE" --repository "$GITHUB_REPOSITORY" --revision "$SCIENCE_REVISION")
+          if node "$helpers/capture_hosted_math.cjs" "${args[@]}" --output "$RUNNER_TEMP/hosted-first"; then
+            exit 0
+          fi
+          report="$RUNNER_TEMP/hosted-first/hosted-report.json"
+          if test -f "$report" && grep -Eq 'HTTP (502|503|504)' "$report"; then
+            node "$helpers/capture_hosted_math.cjs" "${args[@]}" --resume-from "$RUNNER_TEMP/hosted-first" --output "$RUNNER_TEMP/hosted-resumed"
+          else
+            exit 1
+          fi
+      - name: Retain the captures and comparison reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: hosted-math-${{ env.SCIENCE_REVISION }}
+          path: |
+            ${{ runner.temp }}/hosted-probe
+            ${{ runner.temp }}/hosted-first
+            ${{ runner.temp }}/hosted-resumed
+          if-no-files-found: error
+          retention-days: 7

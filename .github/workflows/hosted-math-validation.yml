@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
-      SCIENCE_REVISION: 406e60e9a1e10d7d8eca420371b6420686d07a64
+      SCIENCE_REVISION: e527ff17313d055ebfb3d4e9367f0d04c358ce7f
     steps:
       - name: Check out the exact merged scientific source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262

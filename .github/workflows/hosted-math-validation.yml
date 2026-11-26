@@ -50,15 +50,28 @@ jobs:
           helpers="$RUNNER_TEMP/math-helpers"
           node "$helpers/probe_hosted_math.cjs" --root "$GITHUB_WORKSPACE" --repository "$GITHUB_REPOSITORY" --revision "$SCIENCE_REVISION" --page README.md --output "$RUNNER_TEMP/hosted-probe" || echo "Representative probe recorded a diagnostic"
           args=(--root "$GITHUB_WORKSPACE" --repository "$GITHUB_REPOSITORY" --revision "$SCIENCE_REVISION")
-          if node "$helpers/capture_hosted_math.cjs" "${args[@]}" --output "$RUNNER_TEMP/hosted-first"; then
-            exit 0
-          fi
-          report="$RUNNER_TEMP/hosted-first/hosted-report.json"
-          if test -f "$report" && grep -Eq 'HTTP (502|503|504)' "$report"; then
-            node "$helpers/capture_hosted_math.cjs" "${args[@]}" --resume-from "$RUNNER_TEMP/hosted-first" --output "$RUNNER_TEMP/hosted-resumed"
-          else
-            exit 1
-          fi
+          previous=
+          for attempt in 1 2 3 4 5; do
+            output="$RUNNER_TEMP/hosted-attempt-$attempt"
+            resume=()
+            if test -n "$previous"; then
+              resume=(--resume-from "$previous")
+            fi
+            if node "$helpers/capture_hosted_math.cjs" "${args[@]}" "${resume[@]}" --output "$output"; then
+              mv "$output" "$RUNNER_TEMP/hosted-final"
+              exit 0
+            fi
+            report="$output/hosted-report.json"
+            if test -f "$report"; then
+              python3 -c 'import json,sys; r=json.load(open(sys.argv[1])); print("\\n".join(r["failures"]))' "$report"
+            fi
+            if test "$attempt" = 5 || ! test -f "$report" || ! grep -Eq 'HTTP (502|503|504)' "$report"; then
+              mv "$output" "$RUNNER_TEMP/hosted-final"
+              exit 1
+            fi
+            previous="$output"
+            sleep "$((attempt * 4))"
+          done
       - name: Retain the captures and comparison reports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -66,7 +79,6 @@ jobs:
           name: hosted-math-${{ env.SCIENCE_REVISION }}
           path: |
             ${{ runner.temp }}/hosted-probe
-            ${{ runner.temp }}/hosted-first
-            ${{ runner.temp }}/hosted-resumed
+            ${{ runner.temp }}/hosted-final
           if-no-files-found: error
           retention-days: 7

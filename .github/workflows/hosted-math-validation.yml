@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
-      SCIENCE_REVISION: e527ff17313d055ebfb3d4e9367f0d04c358ce7f
+      SCIENCE_REVISION: e2bf5747d21a3a45d7c3db02ed32aa0311b7068e
     steps:
       - name: Check out the exact merged scientific source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -80,5 +80,7 @@ jobs:
           path: |
             ${{ runner.temp }}/hosted-probe
             ${{ runner.temp }}/hosted-final
+            ${{ runner.temp }}/hosted-attempt-*/hosted-report.json
+            ${{ runner.temp }}/hosted-attempt-*/capture-state.json
           if-no-files-found: error
           retention-days: 7

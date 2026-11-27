@@ -1,0 +1,97 @@
+name: Hosted mathematics
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/hosted-math-validation.yml'
+      - 'verification/hosted_validation/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hosted-math-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      SCIENCE_REVISION: d41cb0c5e4c489247b772c1e053a598bdb250a01
+      PROBE_PAGE: science/phase-tied-receivers.md
+    steps:
+      - name: Check out the validation branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Check out the exact scientific source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ env.SCIENCE_REVISION }}
+          path: checked-source
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Verify source and collector identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C "$GITHUB_WORKSPACE/checked-source" rev-parse HEAD)" = "$SCIENCE_REVISION"
+          helpers="$GITHUB_WORKSPACE/verification/hosted_validation"
+          test "$(git hash-object "$helpers/capture_hosted_math.cjs")" = e8d2c87b345b1c94c11e01b8661f92e4abf8d97d
+          test "$(git hash-object "$helpers/probe_hosted_math.cjs")" = f83ea9da799bee0b53bd5c57315ae2b4b2d9de43
+          test "$(git hash-object "$helpers/check_rendered_math.py")" = 1d3bf9810d0dfadb844a48b354af80f9b66924bc
+      - name: Install the pinned browser and math comparison tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/math-runtime" playwright@1.56.1 mathjax-full@3.2.1
+          node "$RUNNER_TEMP/math-runtime/node_modules/playwright/cli.js" install chromium
+      - name: Probe the representative page, then compare all hosted mathematics
+        id: hosted
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/math-runtime/node_modules
+        run: |
+          set -euo pipefail
+          helpers="$GITHUB_WORKSPACE/verification/hosted_validation"
+          source="$GITHUB_WORKSPACE/checked-source"
+          evidence="$RUNNER_TEMP/hosted-validation"
+          mkdir "$evidence"
+          echo "evidence=$evidence" >> "$GITHUB_OUTPUT"
+          args=(--root "$source" --repository "$GITHUB_REPOSITORY" --revision "$SCIENCE_REVISION")
+
+          node "$helpers/probe_hosted_math.cjs" "${args[@]}" --page "$PROBE_PAGE" --output "$evidence/probe" || echo 'The representative probe recorded a diagnostic.'
+          if node "$helpers/capture_hosted_math.cjs" "${args[@]}" --output "$evidence/initial"; then
+            exit 0
+          fi
+
+          # Resume only if every recorded capture failure is a transient GitHub response.
+          python3 - "$evidence/initial/capture-state.json" <<'PY'
+          import json
+          import re
+          import sys
+
+          with open(sys.argv[1], encoding='utf-8') as state:
+              failures = json.load(state)['failures']
+          retryable = all(
+              failure['category'] == 'transport_failure'
+              and re.fullmatch(r'Error: HTTP (502|503|504)', failure['reason'])
+              for failure in failures
+          )
+          if not failures or not retryable:
+              raise SystemExit(1)
+          PY
+
+          node "$helpers/capture_hosted_math.cjs" "${args[@]}" --output "$evidence/resumed" --resume-from "$evidence/initial"
+      - name: Retain the reports and actual hosted captures
+        if: always() && steps.hosted.outputs.evidence != ''
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: hosted-math-${{ env.SCIENCE_REVISION }}-attempt-${{ github.run_attempt }}
+          path: ${{ steps.hosted.outputs.evidence }}
+          if-no-files-found: error
+          retention-days: 7

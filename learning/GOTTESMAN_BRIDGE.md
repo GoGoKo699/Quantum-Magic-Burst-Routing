@@ -6,7 +6,7 @@ The educational anchor is Daniel Gottesman, *An Introduction to Quantum Error Co
 
 | Section in Gottesman | What to extract | Where it enters the project |
 |---|---|---|
-| §2.3, especially Theorem 5 | A generator measurement records whether an error commutes or anticommutes. Errors share a syndrome when their product has trivial syndrome. | [Check signs and output parity](../science/model.md) |
+| §2.3, including the two-qubit parity example and Theorem 5 | A common eigenspace retains coherence within one signed syndrome. Errors that differ by a trivial-syndrome operator share a record. | [Check signs and output parity](../science/model.md) and [two-string projections](../science/phase-tied-receivers.md#two-string-projections) |
 | §3.1, binary parity-check and seven-qubit examples | A matrix column gives the syndrome of one error. Adding columns gives the syndrome of several errors. | [Input labels and source-bundle columns](../science/routing.md) |
 | §§3.4–3.5 | Logical Paulis act on encoded information. Clifford conjugation maps Paulis to Paulis. | [Which accepted faults flip the output](../science/model.md) |
 | §§4.1 and 4.3 | Propagate errors through the operation that follows them. Treat preparation, measurement, and waiting as physical locations when modeling implementation. See how transversal gates constrain error spread. | [Physical injection and scheduling assumptions](../science/scheduling.md) |
@@ -28,6 +28,8 @@ The educational anchor is Daniel Gottesman, *An Introduction to Quantum Error Co
 Gottesman supplies the syndrome and gate-teleportation framework. The 15-to-1 injection circuit comes from the magic-state distillation literature cited in [Related work](../references/RELATED_WORK.md). Its fault-propagation rule is the additional step needed here. Each faulty injection flips the output and toggles the subset of check bits named by its slot. With this rule, the quantum circuit induces a linear syndrome on raw error masks and a separate output parity.
 
 The project changes the input assignment under a source-level noise model. Each source has a physical bundle of three states. The three slot columns of a bundle sum to its source-level syndrome column. Selecting those columns to give a rank-four source map leaves exactly two burst histories per record. The [routing proof](../science/routing.md) establishes the assignment and the decision rule. The [noise analysis](../science/noise.md) explains how partial bundles and independent slot faults change the guarantee.
+
+The same stabilizer framework gives a different implementation of the record. With phase-tied equatorial inputs, the two-qubit parity example in §2.3 explains why a signed projection keeps the coherence between two strings. Equal accumulated phases allow the Clifford decoder to remove the common drift from their relative phase. An even weight difference yields an X-basis comparison qubit whose sign reads a source parity. The odd extraction pair leaves a T state or its Z partner. Four independent comparison masks recover the same complement pairs, with an extra acceptance factor from the five pair projections. [Phase-tied receiver](../science/phase-tied-receivers.md)
 
 The tutorial’s treatment of noisy physical locations also motivates the distinction between the ideal circuit and a deliverable schedule. Transport, waiting, imperfect checks, and any correlations introduced by shared hardware need their own model. The [scheduling analysis](../science/scheduling.md) states the cost assumptions used for the comparisons.
 

@@ -10,6 +10,8 @@ proofs and hardware interface are explained in science/.
   fault distributions, success convention and charged resources.
 - science/routing.md — explicit five-source placement, complement classes,
   optimal syndrome information and the reliability–yield tradeoff.
+- science/phase-tied-receivers.md — source phase ties, a parity receiver with
+  the same burst decision frontier, projection cost and phase mismatch.
 - science/noise.md — independent per-input faults, exact Walsh formulas and
   the minimum number of harmful whole-plus-partial burst patterns.
 - science/scaling.md — punctured Reed–Muller family and balanced placement.

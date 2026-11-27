@@ -1,6 +1,6 @@
 # Learning Quantum Magic Burst Routing
 
-A 15-to-1 factory has four syndrome checks and fifteen input slots. This project asks how much those checks can tell us when each of five sources supplies three inputs and faults can strike a whole source bundle. The learning route starts with gate teleportation and parity checks, then follows the input assignment through exact error rates, partial faults, and scheduling.
+A 15-to-1 factory has four syndrome checks and fifteen input slots. This project asks how much those checks can tell us when each of five sources supplies three inputs and faults can strike a whole source bundle. The learning route starts with gate teleportation and parity checks, then follows the input assignment through exact error rates, partial faults, and scheduling. It also traces how a separate parity receiver obtains the same records when the input phases drift under known relations.
 
 | Resource | Use it to |
 |---|---|

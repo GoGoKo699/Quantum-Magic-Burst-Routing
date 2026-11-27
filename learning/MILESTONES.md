@@ -1,6 +1,6 @@
 # Project understanding map
 
-The first twelve milestones build the shared vocabulary from an injected phase rotation to the fixed factory and its source-noise model. The remaining eighteen develop the source assignment, posterior decisions, residual faults, and delivery costs. The map follows the argument of the project. [Gottesman’s tutorial](GOTTESMAN_BRIDGE.md) supplies the educational background, and the [scientific account](../science/README.md) gives the exact statements and proofs.
+The first twelve milestones build the shared vocabulary from an injected phase rotation to the fixed factory and its source-noise model. The remaining eighteen develop the source assignment, posterior decisions, phase-tied receivers, residual faults, and delivery costs. [Gottesman’s tutorial](GOTTESMAN_BRIDGE.md) supplies the educational background, and the [scientific account](../science/README.md) gives the exact statements and proofs.
 
 | Phase | Milestones | Understanding gained |
 |---|---|---|
@@ -191,9 +191,9 @@ The first twelve milestones build the shared vocabulary from an injected phase r
 
 **Prerequisites.** [M13](#m13-a-bundle-induces-one-check-column), [M14](#m14-an-explicit-five-source-assignment).
 
-**Conceptual connection.** Explain why complementing the burst history preserves the record while flipping output parity.
+**Conceptual connection.** Explain why complementing the burst history preserves the record while flipping output parity. Recover the same kernel by imposing equal neighboring burst bits along the path of four comparisons in the five-tie receiver.
 
-**Sources.** [Routing and decision rules](../science/routing.md)
+**Sources.** [Routing and decision rules](../science/routing.md) · [Phase-tied comparisons](../science/phase-tied-receivers.md#two-string-projections)
 
 ### M16 Fifth-order conditional error
 
@@ -239,9 +239,9 @@ The first twelve milestones build the shared vocabulary from an injected phase r
 
 **Prerequisites.** [M11](#m11-acceptance-and-error), [M16](#m16-fifth-order-conditional-error), [M18](#m18-correction-from-nonzero-records).
 
-**Conceptual connection.** Explain why an unconditional stream of corrected outputs and a stricter postselected stream implement different operating points.
+**Conceptual connection.** Explain why keeping all records with correction and keeping only zero syndrome implement different operating points. Transfer the ordering of the records to a phase-tied receiver and account for the probability of its computational projections.
 
-**Sources.** [Routing and decision rules](../science/routing.md)
+**Sources.** [Routing and decision rules](../science/routing.md) · [Observed syndrome and yield](../science/phase-tied-receivers.md#observed-syndrome-and-yield)
 
 ### M20 Proving what the checks can see
 
@@ -311,9 +311,9 @@ The first twelve milestones build the shared vocabulary from an injected phase r
 
 **Prerequisites.** [M16](#m16-fifth-order-conditional-error), [M23](#m23-independent-errors-on-top-of-bursts), [M24](#m24-exact-noise-polynomials).
 
-**Conceptual connection.** Connect the leading powers of a two-parameter error model to a quantitative constraint on a routing or storage implementation.
+**Conceptual connection.** Connect the leading powers to a quantitative constraint on a routing or storage implementation. In the phase-tied receiver, explain separately why a fixed extraction phase gives an infidelity floor and how an erroneous comparison can accept a rejected burst history.
 
-**Sources.** [Noise analysis](../science/noise.md) · [Scheduling and costs](../science/scheduling.md)
+**Sources.** [Noise analysis](../science/noise.md) · [Scheduling and costs](../science/scheduling.md) · [Deterministic phase mismatch](../science/phase-tied-receivers.md#finite-deterministic-mismatch)
 
 ### M26 Scheduling the same circuit
 
@@ -355,13 +355,13 @@ The first twelve milestones build the shared vocabulary from an injected phase r
 
 **Central question.** Which checks support the claims and where do their guarantees end?
 
-**Understanding target.** Distinguish the inherited factory, exact routing proofs, finite enumerations, and scheduling model. Identify how incorrect checks, coherent errors, or a different source distribution can change the task.
+**Understanding target.** Distinguish the inherited factory, exact routing proofs, finite enumerations, and scheduling model. In the phase-tied receiver, distinguish the mixed-parity extraction, the measured burst syndrome, and the four-tie lower bound for disjoint supports.
 
 **Prerequisites.** [M20](#m20-proving-what-the-checks-can-see), [M22](#m22-a-whole-burst-and-a-partial-pair), [M24](#m24-exact-noise-polynomials), [M26](#m26-scheduling-the-same-circuit), [M28](#m28-constructing-larger-source-groups).
 
 **Conceptual connection.** Reconcile the noise assumptions, resource accounting, and scope of each result before comparing with related work.
 
-**Sources.** [Scientific account](../science/README.md) · [Related work](../references/RELATED_WORK.md) · [Verification](../verification/README.md)
+**Sources.** [Scientific account](../science/README.md) · [Four-tie lower bound](../science/phase-tied-receivers.md#four-ties-within-the-disjoint-receiver-family) · [Related work](../references/RELATED_WORK.md) · [Verification](../verification/README.md)
 
 ### M30 The complete routing argument
 
@@ -371,6 +371,6 @@ The first twelve milestones build the shared vocabulary from an injected phase r
 
 **Prerequisites.** [M16](#m16-fifth-order-conditional-error), [M17](#m17-maximum-syndrome-information), [M19](#m19-the-yield-and-fidelity-trade-off), [M22](#m22-a-whole-burst-and-a-partial-pair), [M25](#m25-the-crossover-in-suppression-order), [M26](#m26-scheduling-the-same-circuit), [M28](#m28-constructing-larger-source-groups), [M29](#m29-evidence-and-attribution).
 
-**Conceptual connection.** Tie the physical source model to the check record and the costs that determine whether improved ideal fidelity produces a useful factory.
+**Conceptual connection.** Tie the source model to the check record and the costs that determine whether improved ideal fidelity produces a useful factory. Explain why a phase-tied parity receiver can have the same syndrome and conditional infidelity while paying a different acceptance cost.
 
-**Sources.** [Scientific account](../science/README.md) · [Routing and decision rules](../science/routing.md) · [Noise analysis](../science/noise.md) · [Scheduling and costs](../science/scheduling.md) · [Larger gadgets](../science/scaling.md)
+**Sources.** [Scientific account](../science/README.md) · [Routing and decision rules](../science/routing.md) · [Phase-tied receiver](../science/phase-tied-receivers.md) · [Noise analysis](../science/noise.md) · [Scheduling and costs](../science/scheduling.md) · [Larger gadgets](../science/scaling.md)

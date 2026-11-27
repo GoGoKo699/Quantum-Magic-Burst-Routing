@@ -50,4 +50,6 @@ A_0=(1-p)^5+p^5,\qquad F_0=\frac{p^5}{(1-p)^5+p^5}.
 
 For the usual zero-syndrome test with its identity correction, this infidelity is the minimum over layouts. To see this, pair each accepted history with its complement. The no-fault/all-fault pair always contributes. For every other accepted pair the smaller weight is one or two, and the odd member of the pair has conditional probability strictly larger than the odd member of the no-fault/all-fault pair. Every extra pair therefore increases conditional infidelity. A layout with a collinear group has a weight-one accepted fault and incurs first-order infidelity. A zero-syndrome layout with no zero column and a repeated column has a weight-three accepted fault, since the repeated pair and its three-element complement both have zero syndrome. Thus fifth-order zero-syndrome suppression is equivalent to all five columns being distinct and nonzero.
 
+With [phase-tied equatorial inputs](phase-tied-receivers.md), a separate stabilizer receiver measures an invertible recoding of these complementary history pairs. The same decisions apply after accounting for the probability of the receiver's five computational projections.
+
 [Model](model.md) · [Partial bursts and local faults](noise.md) · [Verification](../verification/README.md)

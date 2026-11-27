@@ -14,6 +14,12 @@ Meier, Eastin and Knill likewise discuss routing outputs from a given distillati
 
 Balada Gaggioli and Mareček frame distillation in terms of fault patterns that a stabilizer protocol rejects or maps to the target, and give bounds on the minimum raw-state count for prescribed independent-input suppression orders. Their framework also treats prescribed sets of patterns and, in composite constructions, faults with different costs at different units. It supplies a general formulation for asking which source faults are harmless. The [routing theorem](../science/routing.md) solves the distinct assignment problem for a specific check circuit and gives the full syndrome comparison. The [partial-burst bound](../science/noise.md) fixes the circuit and optimizes the number of particular two-source failures. See [Balada Gaggioli and Mareček, Theorem 1 and §IV](https://arxiv.org/html/2610.31115v1).
 
+## Coherent phase cancellation
+
+Debroy and colleagues choose stabilizer signs so coherent idling errors cancel in encoded Shor memories. The [phase-tied receiver](../science/phase-tied-receivers.md) instead receives prepared equatorial product states. The signed parity projections use specified equalities among the accumulated phases to measure relative burst bits and extract one T state. The construction transfers the entire complementary-history decision frontier to that input model. [Debroy et al., *Physical Review Letters* **127**, 240501 (2021)](https://doi.org/10.1103/PhysRevLett.127.240501)
+
+Wang and colleagues characterize a five-to-one distiller's polarization and acceptance in terms of moments after local Clifford twirling. The phase-tied receiver uses coherence between selected computational strings before measuring the burst comparisons. Its deterministic mismatch law gives the error probability of each comparison separately. [Wang et al., arXiv:2610.36963](https://arxiv.org/abs/2610.36963)
+
 ## Physical correlations and educational source
 
 Correlated device faults can arise from mechanisms such as bursts of quasiparticles. Such observations motivate examining correlated inputs and do not identify the five-source model with the noise of a particular device. The pure whole-bundle model and mixed partial-fault law have separate assumptions. See [McEwen et al.](https://doi.org/10.1038/s41567-021-01432-8).

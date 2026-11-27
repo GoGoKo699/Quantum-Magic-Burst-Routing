@@ -17,13 +17,17 @@ A=(1-p)^5+p^5,\qquad \epsilon=\frac{p^5}{A}.
 
 The result uses 15 raw states and the usual checks per attempted output. Rejected attempts count toward cost. Slot assignment can leave the logical check circuit fixed, but physical delivery, waiting and faulty checks require their own accounting. The [schedule analysis](science/scheduling.md) makes that accounting explicit for a serial injection port.
 
+## Sister project
+
+[Quantum Common-Mode Magic Distillation](https://github.com/GoGoKo699/Quantum-Common-Mode-Magic-Distillation) extracts a T state by preserving coherence between two strings with the same unknown phase. The [phase-tied receiver](science/phase-tied-receivers.md) uses that projection to measure the same complementary burst histories as the routed factory when the 15 inputs also carry continuous phase drift. Four phase ties suffice for fifth-order suppression, and a fifth improves the displayed yield by a factor of 16.
+
 ## Read the science
 
 Start with the [circuit, fault model and claims](science/model.md). The [routing theorem](science/routing.md) gives the five bundles and derives the reliability–yield tradeoff. The [noise analysis](science/noise.md) proves the partial-burst optimum and evaluates independent local errors. The [larger Reed–Muller construction](science/scaling.md) extends the mechanism to more sources with an explicit raw-state budget. The [science index](science/README.md) connects these results to the [prior work](references/RELATED_WORK.md).
 
 ## Learn the project
 
-The [30-milestone map](learning/MILESTONES.md) traces the argument from binary Pauli syndromes to source-aware input assignment and resource accounting. The single educational anchor is Daniel Gottesman's *An Introduction to Quantum Error Correction and Fault-Tolerant Quantum Computation*. The [Gottesman bridge](learning/GOTTESMAN_BRIDGE.md) maps its stabilizer, transversal-gate and injection sections to the proofs.
+The [30-milestone map](learning/MILESTONES.md) traces the argument from binary Pauli syndromes to source-aware input assignment, phase-tied extraction and resource accounting. The single educational anchor is Daniel Gottesman's *An Introduction to Quantum Error Correction and Fault-Tolerant Quantum Computation*. The [Gottesman bridge](learning/GOTTESMAN_BRIDGE.md) maps its stabilizer, transversal-gate and injection sections to the proofs.
 
 Use the [learning entry point](learning/README.md) for a self-directed route or the [LLM reading guide](llms.txt) to locate a claim or derivation.
 
@@ -31,9 +35,10 @@ Use the [learning entry point](learning/README.md) for a self-directed route or 
 
 ```bash
 python3 verification/run_all.py
+python3 verification/check_phase_ties.py
 ```
 
-The [verification guide](verification/README.md) identifies the enumerated fault histories, exact probability comparisons and larger constructions. The written proofs supply the general statements.
+The [verification guide](verification/README.md) identifies the enumerated fault histories, exact probability comparisons, phase-tied receivers and larger constructions. The written proofs supply the general statements.
 
 ## Purpose and contact
 

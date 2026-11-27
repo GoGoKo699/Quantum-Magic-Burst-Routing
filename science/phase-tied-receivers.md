@@ -66,7 +66,7 @@ Thus the four comparison equalities already require four independent ties. At fo
 
 For the last row there is also an optimal extraction probability among receivers that first keep the four stated comparison projections and use only the seven remaining carriers for extraction. Those seven carriers have six independent charge coordinates subject to the four retained ties. Their sole signed charge relation uses all seven and is the last row's extraction equality. Only one charge sector contains both Hamming-weight parities, and it has two strings. The one-qubit extraction bound gives at most $`2^{1-7}=1/64`$ once the four comparison projections succeed.
 
-The four-tie minimum concerns the stated receiver family. In the [independent-phase converse](https://github.com/GoGoKo699/Quantum-Common-Mode-Magic-Distillation), arbitrary joint stabilizer receivers at nonvanishing yield cannot achieve fifth-order suppression when all inter-source ties are removed. That converse also explains why sixth order is impossible even with ties. Whether arbitrary joint receivers can omit either outer tie in the named family remains open.
+The four-tie minimum concerns the stated receiver family. In the [independent-phase converse](https://github.com/GoGoKo699/Quantum-Common-Mode-Magic-Distillation/blob/cf36089ff7215b5f3044c06ffc0be79f96a53c43/science/burst-converse.md), arbitrary joint stabilizer receivers at nonvanishing yield cannot achieve fifth-order suppression when all inter-source ties are removed. That converse also explains why sixth order is impossible even with ties. Whether arbitrary joint receivers can omit either outer tie in the named family remains open.
 
 ## Finite deterministic mismatch
 

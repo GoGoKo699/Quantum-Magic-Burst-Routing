@@ -8,6 +8,7 @@ For independent whole-source bursts of equal probability $p$, zero-syndrome post
 | --- | --- |
 | [Model](model.md) | The ideal 15-to-1 gadget, the input fault model, and the charged resources. |
 | [Routing and decisions](routing.md) | The explicit slot assignment, its maximal syndrome information, and the exact fidelity–yield tradeoff under whole-source noise. |
+| [Phase-tied receivers](phase-tied-receivers.md) | Parity projections that recover the same burst syndrome under coherent phase drift, the four-tie yield tradeoff, and the deterministic mismatch law. |
 | [Partial bursts and local faults](noise.md) | Sharp limits on partial bursts and exact performance when every slot independently adds a local fault. |
 | [Larger Reed–Muller gadgets](scaling.md) | A general construction and an equally sized source assignment for an infinite family. |
 | [Supply scheduling](scheduling.md) | A serialized feeder comparison that counts storage, waiting and rejected attempts. |

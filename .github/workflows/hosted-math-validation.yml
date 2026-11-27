@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     env:
-      SCIENCE_REVISION: d41cb0c5e4c489247b772c1e053a598bdb250a01
+      SCIENCE_REVISION: f5d48bfa9be85801e2d745b6deefb5c724455e4d
       MILESTONES_PAGE: learning/MILESTONES.md
     steps:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -40,7 +40,12 @@ jobs:
               const observations=[];
               for(const width of [760,1440]){
                 const page=await browser.newPage({viewport:{width,height:1100}});
-                const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+                const navOptions={waitUntil:'domcontentloaded',timeout:45000};
+                let response=await page.goto(url,navOptions);
+                if([502,503,504].includes(response.status())) {
+                  await new Promise(resolve=>setTimeout(resolve,3000));
+                  response=await page.goto(url,navOptions);
+                }
                 if(response.status()!==200||page.url()!==url) throw Error('Expected exact GitHub page, got '+response.status());
                 const article=page.locator('article.markdown-body');
                 await article.getByRole('heading',{name:'Project understanding map'}).waitFor();
